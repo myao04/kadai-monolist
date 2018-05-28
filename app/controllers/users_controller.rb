@@ -12,9 +12,22 @@ class UsersController < ApplicationController
       render :new
     end
   end
+  
+  def show
+    @user = User.find(params[:id])
+    @items = @user.items.uniq
+    @count_want = @user.want_items.count
+    @count_have = @user.have_items.count
+  end
+  
+  def new
+    @user = User.new
+  end
 
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+  
+end
